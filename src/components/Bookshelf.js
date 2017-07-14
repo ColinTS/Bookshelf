@@ -13,6 +13,7 @@ class Bookshelf extends Component {
               <ol id='currentlyReading' className='books-grid'>
                 {books.map((book) => (
                   <Book
+                    key={book.id}
                     book={book}
                   />
                 ))}

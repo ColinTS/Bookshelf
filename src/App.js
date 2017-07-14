@@ -24,6 +24,7 @@ class BooksApp extends Component {
   }
 
   render() {
+    const { books } = this.state
     return (
       <div className="app">
         {this.state.showSearchPage ? (
@@ -47,15 +48,15 @@ class BooksApp extends Component {
               <div>
                 < Bookshelf
                   title='Current Reading'
-                  books={books.filter}
+                  books={books.filter((book)=> book.shelf === 'currentlyReading')}
                 />
                 < Bookshelf 
                   title='Wants To Read'
-                  books={this.state.books}
+                  books={books.filter((book)=> book.shelf === 'wantToRead')}
                 />
                 < Bookshelf
                   title='Read'
-                  books={this.state.books}
+                  books={books.filter((book)=> book.shelf === 'read')}
                 />
               </div>
             </div>
