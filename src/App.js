@@ -23,6 +23,20 @@ class BooksApp extends Component {
     })
   }
 
+  getAllBooks = () => {
+    BooksAPI.getAll().then((books) => {
+      console.log(books)
+      this.setState({books})
+    })
+  }
+
+   updateBook = (book, shelf) => {
+    BooksAPI.update(book, shelf).then(book => {
+      this.getAllBooks()
+      console.log(book.shelf)
+    })
+  }
+
   render() {
     const { books } = this.state
     return (
@@ -48,14 +62,17 @@ class BooksApp extends Component {
               <div>
                 < Bookshelf
                   title='Current Reading'
+                  onUpdateBook={this.updateBook}
                   books={books.filter((book)=> book.shelf === 'currentlyReading')}
                 />
                 < Bookshelf 
                   title='Wants To Read'
+                  onUpdateBook={this.updateBook}
                   books={books.filter((book)=> book.shelf === 'wantToRead')}
                 />
                 < Bookshelf
                   title='Read'
+                  onUpdateBook={this.updateBook}
                   books={books.filter((book)=> book.shelf === 'read')}
                 />
               </div>
