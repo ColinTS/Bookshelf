@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import './App.css';
 import Bookshelf from './components/Bookshelf'
@@ -31,9 +32,9 @@ class BooksApp extends Component {
   }
 
    updateBook = (book, shelf) => {
-    BooksAPI.update(book, shelf).then(book => {
+    BooksAPI.update(book, shelf).then(res => {
       this.getAllBooks()
-      console.log(book.shelf)
+      console.log(res)
     })
   }
 
@@ -60,19 +61,20 @@ class BooksApp extends Component {
             </div>
             <div className="list-books-content">
               <div>
+                
                 < Bookshelf
                   title='Current Reading'
-                  onUpdateBook={this.updateBook}
+                  updateBook={this.updateBook}
                   books={books.filter((book)=> book.shelf === 'currentlyReading')}
                 />
                 < Bookshelf 
                   title='Wants To Read'
-                  onUpdateBook={this.updateBook}
+                  updateBook={this.updateBook}
                   books={books.filter((book)=> book.shelf === 'wantToRead')}
                 />
                 < Bookshelf
                   title='Read'
-                  onUpdateBook={this.updateBook}
+                  updateBook={this.updateBook}
                   books={books.filter((book)=> book.shelf === 'read')}
                 />
               </div>
