@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import '../App.css'
 import Book from './Book'
 
-
-
 class Bookshelf extends Component {
   render() {
     const { books, title, updateBook } = this.props
