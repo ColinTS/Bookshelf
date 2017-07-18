@@ -9,6 +9,7 @@ class SearchBar extends Component {
     const { bookResults, searchBooks, updateBook } = this.props
 
     return (
+    <div>
       <div className="search-books-bar">
         <Link className="close-search" to='/'>Close</Link>
         <div className="search-books-input-wrapper">
@@ -17,12 +18,13 @@ class SearchBar extends Component {
             placeholder="Search by title or author" 
             onChange={(event) => searchBooks(event.target.value,10)}
             />
-          < SearchResults 
-            updateBook={updateBook}
-            bookResults={bookResults}
-          />
         </div>
       </div>
+       < SearchResults 
+            updateBook={updateBook}
+            bookResults={bookResults}
+        />
+    </div>
     )
   }
 }
