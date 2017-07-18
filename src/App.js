@@ -37,8 +37,7 @@ class BooksApp extends Component {
   searchBooks = (query, maxResults) => {
     BooksAPI.search(query, maxResults).then(books => {
       console.log(books)
-      this.setState({bookResults: books})
-
+      query.length > 0 && (books.error ? (this.setState({bookResults: []})) : (this.setState({bookResults: books})))
     })
   }
 
