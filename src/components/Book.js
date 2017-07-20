@@ -21,8 +21,8 @@ class Book extends Component {
             </div>
           </div>
             <div className="book-title">{book.title}</div>
-            {book.authors ? (<div className="book-authors">{book.authors[0]}</div>) : (<div></div>)}
-          </div>
+            {book.authors ? (book.authors.map((author)=>(
+              <div className="book-authors">{author}</div>))) : (<div></div>)} </div>
       </li>
     )
   }

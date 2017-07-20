@@ -15,14 +15,12 @@ class BooksApp extends Component {
 
   componentDidMount(){
     BooksAPI.getAll().then((books) => {
-      console.log(books)
       this.setState({books})
     })
   }
 
   getAllBooks = () => {
     BooksAPI.getAll().then((books) => {
-      console.log(books)
       this.setState({books})
     })
   }
@@ -30,15 +28,16 @@ class BooksApp extends Component {
    updateBook = (book, shelf) => {
     BooksAPI.update(book, shelf).then(res => {
       this.getAllBooks()
-      console.log(res)
     })
   }
 
   searchBooks = (query, maxResults) => {
-    BooksAPI.search(query, maxResults).then(books => {
-      console.log(books)
-      query.length > 0 && (books.error ? (this.setState({bookResults: []})) : (this.setState({bookResults: books})))
-    })
+    query.length > 0 &&
+      BooksAPI.search(query, maxResults).then(books => {
+        books === undefined && this.setState({bookResults: []})
+        console.log(books)
+        books.error ? (this.setState({bookResults: []})) : (this.setState({bookResults: books}))
+      })
   }
 
   render() {
