@@ -1,18 +1,15 @@
-import React, { Component } from 'react'
+import React from 'react'
 import '../App.css'
 
-class Book extends Component {
-  render() {
-    const { book, updateBook } = this.props
-
-    return(
-      <li>
+const Book = (props) => {
+  return (
+    <li>
         <div className="book">
           <div className="book-top">
-            {book.imageLinks ? (<div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.thumbnail})` }}></div>) 
+            {props.book.imageLinks ? (<div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${props.book.imageLinks.thumbnail})` }}></div>) 
               : (<div className="book-cover" style={{ width: 128, height: 193, backgroundImage:'url(../no-cover.jpg)' }}></div>)}
             <div className="book-shelf-changer">
-              <select defaultValue={book.shelf} onChange={(event)=>updateBook(book, event.target.value)}>
+              <select defaultValue={props.book.shelf} onChange={(event)=>props.updateBook(props.book, event.target.value)}>
                 <option value="none" disabled>Move to...</option>
                 <option value="currentlyReading">Currently Reading</option>
                 <option value="wantToRead">Want to Read</option>
@@ -21,13 +18,12 @@ class Book extends Component {
               </select>
             </div>
           </div>
-            <div className="book-title">{book.title}</div>
-            {book.authors ? (book.authors.map((author)=>(
-              <div className="book-authors">{author}</div>))) : (<div></div>)} 
+            <div className="book-title">{props.book.title}</div>
+            {props.book.authors ? (props.book.authors.map((author)=>(
+              <div key={author} className="book-authors">{author}</div>))) : (<div></div>)} 
           </div>
-      </li>
-    )
-  }
+    </li>
+  )
 }
 
 export default Book

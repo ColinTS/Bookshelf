@@ -50,7 +50,7 @@ class BooksApp extends Component {
         })
         }
         searchedBooks === undefined && this.setState({bookResults: []})
-        searchedBooks.error || !query ? (this.setState({bookResults: []})) : (this.setState({bookResults: searchedBooks}))
+        searchedBooks.error ? (this.setState({bookResults: []})) : (this.setState({bookResults: searchedBooks}))
       })
   }
 

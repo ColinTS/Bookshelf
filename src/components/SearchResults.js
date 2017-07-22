@@ -1,40 +1,21 @@
-import React, { Component } from 'react'
+import React from 'react'
 import '../App.css'
 import Book from './Book'
 
-// const SearchResults = (bookResults, updateBook) => {
-//   (
-//     <div className="search-books-results">
-//       <ol className="books-grid">
-//         {bookResults.map((book) => (
-//           <Book
-//             key={book.id}
-//             book={book}
-//             updateBook={updateBook}
-//           />
-//         ))}
-//       </ol>
-//     </div>
-//   )
-// }
-
-class SearchResults extends Component {
-  render () {
-    const { bookResults, updateBook } = this.props
-    return (
-      <div className="search-books-results">
-        <ol className="books-grid">
-          {bookResults.map((book) => (
-            <Book
-              key={book.id}
-              book={book}
-              updateBook={updateBook}
-            />
-          ))}
-        </ol>
-      </div>
-    )
-  }
+const SearchResults = (props) => {
+  return (
+    <div className="search-books-results">
+      <ol className="books-grid">
+        {props.bookResults.map((book) => (
+          <Book
+            key={book.id}
+            book={book}
+            updateBook={props.updateBook}
+          />
+        ))}
+      </ol>
+    </div>
+  )
 }
 
 export default SearchResults

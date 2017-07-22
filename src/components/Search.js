@@ -1,14 +1,10 @@
-import React, { Component } from 'react'
+import React from 'react'
 import '../App.css'
 import { Link } from 'react-router-dom'
 import SearchResults from './SearchResults'
 
-class SearchBar extends Component {
-
-  render() {
-    const { bookResults, searchBooks, updateBook } = this.props
-
-    return (
+const SearchBar = (props) => {
+  return (
     <div>
       <div className="search-books-bar">
         <Link className="close-search" to='/'>Close</Link>
@@ -16,17 +12,16 @@ class SearchBar extends Component {
           <input 
             type="text" 
             placeholder="Search by title or author" 
-            onChange={(event) => searchBooks(event.target.value,10)}
+            onChange={(event) => props.searchBooks(event.target.value,10)}
             />
         </div>
       </div>
        < SearchResults 
-            updateBook={updateBook}
-            bookResults={bookResults}
+            updateBook={props.updateBook}
+            bookResults={props.bookResults}
         />
     </div>
-    )
-  }
+  )
 }
 
 export default SearchBar
