@@ -33,25 +33,24 @@ class BooksApp extends Component {
   }
 
   searchBooks = (query, maxResults) => {
+    query.length === 0 && this.setState({bookResults: []})
     query.length > 0 &&
       BooksAPI.search(query, maxResults).then(searchedBooks => {
-        
-        console.log('res',searchedBooks)
+        console.log('query', searchedBooks)
         if(!searchedBooks.error){
           searchedBooks.map((searchedBook) => {
-          let unmatched = this.state.books.filter(book => book.id !== searchedBook.id)
-          let match = this.state.books.filter(book => book.id === searchedBook.id)
-          if(match.length > 0){
-            return searchedBook.shelf = match[0].shelf
-          }
-          if(unmatched.length > 0){
-            return searchedBook.shelf = 'none'
-          }
+            let unmatched = this.state.books.filter(book => book.id !== searchedBook.id)
+            let match = this.state.books.filter(book => book.id === searchedBook.id)
+            if(match.length > 0){
+              return searchedBook.shelf = match[0].shelf
+            }
+            if(unmatched.length > 0){
+              return searchedBook.shelf = 'none'
+            }
         })
         }
-
         searchedBooks === undefined && this.setState({bookResults: []})
-        searchedBooks.error ? (this.setState({bookResults: []})) : (this.setState({bookResults: searchedBooks}))
+        searchedBooks.error || !query ? (this.setState({bookResults: []})) : (this.setState({bookResults: searchedBooks}))
       })
   }
 
