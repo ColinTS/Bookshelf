@@ -27,16 +27,28 @@ class BooksApp extends Component {
 
    updateBook = (book, shelf) => {
     BooksAPI.update(book, shelf).then(res => {
+      console.log('updated book', book)
       this.getAllBooks()
     })
   }
 
   searchBooks = (query, maxResults) => {
     query.length > 0 &&
-      BooksAPI.search(query, maxResults).then(books => {
-        books === undefined && this.setState({bookResults: []})
-        console.log(books)
-        books.error ? (this.setState({bookResults: []})) : (this.setState({bookResults: books}))
+      BooksAPI.search(query, maxResults).then(searchedBooks => {
+        
+        console.log('res',searchedBooks)
+        if(!searchedBooks.error){
+          searchedBooks.map((searchedBook) => {
+          let match = this.state.books.filter(book => book.id === searchedBook.id)
+          if(match.length > 0){
+            // this.updateBook(searchedBook, match[0].shelf)
+            return searchedBook.shelf = match[0].shelf
+          }
+        })
+        }
+
+        searchedBooks === undefined && this.setState({bookResults: []})
+        searchedBooks.error ? (this.setState({bookResults: []})) : (this.setState({bookResults: searchedBooks}))
       })
   }
 
@@ -51,6 +63,7 @@ class BooksApp extends Component {
                 searchBooks={this.searchBooks}
                 updateBook={this.updateBook}
                 bookResults={bookResults}
+                books={books}
               />
             </div>
           )}/>
