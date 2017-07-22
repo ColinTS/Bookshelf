@@ -39,10 +39,13 @@ class BooksApp extends Component {
         console.log('res',searchedBooks)
         if(!searchedBooks.error){
           searchedBooks.map((searchedBook) => {
+          let unmatched = this.state.books.filter(book => book.id !== searchedBook.id)
           let match = this.state.books.filter(book => book.id === searchedBook.id)
           if(match.length > 0){
-            // this.updateBook(searchedBook, match[0].shelf)
             return searchedBook.shelf = match[0].shelf
+          }
+          if(unmatched.length > 0){
+            return searchedBook.shelf = 'none'
           }
         })
         }
