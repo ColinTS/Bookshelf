@@ -6,7 +6,6 @@ import Bookshelf from './components/Bookshelf'
 import { Link } from 'react-router-dom'
 import Search from './components/Search'
 
-
 class BooksApp extends Component {
     state = {
       books: [],
@@ -33,7 +32,9 @@ class BooksApp extends Component {
   }
 
   searchBooks = (query, maxResults) => {
+    //  removes the display of book thumbails if nothing is searched
     query.length === 0 && this.setState({bookResults: []})
+   
     query.length > 0 &&
       BooksAPI.search(query, maxResults).then(searchedBooks => {
         if(!searchedBooks.error){
@@ -46,10 +47,11 @@ class BooksApp extends Component {
             if(unmatched.length > 0){
               return searchedBook.shelf = 'none'
             }
-        })
+          })
         }
-        searchedBooks === undefined && this.setState({bookResults: []})
-        searchedBooks.error ? (this.setState({bookResults: []})) : (this.setState({bookResults: searchedBooks}))
+      //  displays no books in search results if there are no search resulsts 
+      //  and displays books if there are.
+        searchedBooks.error || searchedBooks === undefined ? (this.setState({bookResults: []})) : (this.setState({bookResults: searchedBooks}))
       })
   }
 
