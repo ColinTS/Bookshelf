@@ -36,7 +36,6 @@ class BooksApp extends Component {
     query.length === 0 && this.setState({bookResults: []})
     query.length > 0 &&
       BooksAPI.search(query, maxResults).then(searchedBooks => {
-        console.log('query', searchedBooks)
         if(!searchedBooks.error){
           searchedBooks.map((searchedBook) => {
             let unmatched = this.state.books.filter(book => book.id !== searchedBook.id)
